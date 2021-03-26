@@ -3,6 +3,14 @@ import fetch from 'node-fetch';
 import { sign } from 'jsonwebtoken';
 import config from './config';
 
+const queryAllRoles = `query AllRoles {
+  account {
+    roles {
+      id
+    }
+  }
+}`;
+
 const queryEmailsByRole = `query EmailsByRole($roleId: String!) {
   account {
     roleUsers(roleId: $roleId) {
@@ -40,6 +48,16 @@ async function doRequest(query: string, variables: Record<string, any>): Promise
   return (await request.json()).data;
 }
 
+async function getAllRoles(): Promise<string[]> {
+  const result = await doRequest(queryAllRoles, {});
+  return result?.account?.roles?.map(({ id }: any) => id) || [];
+}
+
+async function fixRoleCase(roleId: string): string {
+  const roles = await getAllRoles();
+  return roles.filter((id) => id.toLowerCase() === roleId.toLowerCase())[0] || roleId;
+}
+
 export interface User {
   name: string
   givenName: string
@@ -48,7 +66,7 @@ export interface User {
 }
 
 export async function getUsersForRole(roleId: string): Promise<User[]> {
-  const result = await doRequest(queryEmailsByRole, { roleId });
+  const result = await doRequest(queryEmailsByRole, { roleId: await fixRoleCase(roleId) });
   return result?.account?.roleUsers.filter(({ email }: User) => email) || [];
 }
 
