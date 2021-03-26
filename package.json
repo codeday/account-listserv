@@ -1,0 +1,42 @@
+{
+  "name": "@codeday/account-listserv",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "author": "Tyler Menezes <tylermenezes@srnd.org>",
+  "license": "Artistic-2.0",
+  "scripts": {
+    "start": "node dist",
+    "clean": "rm -rf dist",
+    "build": "npm -s run clean && npx tsc",
+    "dev": "ts-node-dev --no-notify --respawn --transpile-only src",
+    "debug": "ts-node-dev --no-notify --respawn src"
+  },
+  "dependencies": {
+    "@codeday/eslint-config-typescript": "^2.1.7",
+    "@types/body-parser": "^1.19.0",
+    "@types/express": "^4.17.9",
+    "@types/express-session": "^1.17.3",
+    "@types/jsonwebtoken": "^8.5.1",
+    "@types/luxon": "^1.26.2",
+    "@types/passport": "^1.0.4",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "nocache": "^2.1.0",
+    "node-fetch": "^2.6.0",
+    "passport": "^0.4.1",
+    "passport-auth0": "^1.4.0",
+    "postmark": "^2.7.3"
+  },
+  "devDependencies": {
+    "@codeday/eslint-typescript-config": "^2.0.1",
+    "@types/node": "^14.14.10",
+    "@types/node-fetch": "^2.5.7",
+    "eslint": "^7.6.0",
+    "ts-node": "^8.10.2",
+    "ts-node-dev": "^1.0.0-pre.56",
+    "typescript": "^3.9.7"
+  }
+}
