@@ -53,7 +53,7 @@ async function getAllRoles(): Promise<string[]> {
   return result?.account?.roles?.map(({ id }: any) => id) || [];
 }
 
-async function fixRoleCase(roleId: string): string {
+async function fixRoleCase(roleId: string): Promise<string> {
   const roles = await getAllRoles();
   return roles.filter((id) => id.toLowerCase() === roleId.toLowerCase())[0] || roleId;
 }
